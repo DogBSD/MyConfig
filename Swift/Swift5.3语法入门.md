@@ -286,5 +286,185 @@ precondition(index > 0, "Index must be greater than zero.")
 
 -----
 
+## 2. 基本运算符
 
+## 2.1 专门用语
 
+```swift
+一元 -a, !b, c!
+二元 对目标的两个数进行操作，典型的 a+b
+三元 a ? b : c //swift 与c都是只有这么一个三元运算符
+
+受到运算符影响的值叫做操作数。在表达式 1 + 2  中， +  符号是一个二元运算符，其中的两个值 1 和 2 就是操作数。
+```
+
+## 2.2 赋值运算符
+
+`=` 是赋值、`==` 等于，两者需要区分开，赋值是不返回值的。
+
+```swift
+let (x, y) = (1, 2)  //元组形式的声明常量，比let x = 1, y = 2更具有高级感
+```
+
+## 2.3 算术运算符
+
+典型：`+, -, *, /`，Swift 算术运算符默认不允许值溢出。
+
+```swift
+print("hello, " + "word!")  //加法可以用于拼接字符串
+```
+
+### 2.3.1 余数运算符
+
+*余数运算符*（ a % b ）可以求出多少个 b 的倍数能够刚好放进 a 中并且返回剩下的值（就是我们所谓的余数）。
+
+```swift
+print(10 % 4)
+```
+
+当 b为负数时它的正负号被忽略掉了。这意味着 a % b 与 a % -b 能够获得相同的答案。
+
+### 2.3.2  一元减号运算符
+
+一元减号运算符 `-`，写在操作数前面，如：`-a`
+
+```swift
+let three = 3
+let minusThree = -three // minusThree equals -3
+let plusThree = -minusThree // plusThree equals 3, or "minus minus three"
+```
+
+### 2.3.3 一元加号运算符
+
+```swift
+let minusSix = -6
+let alsoMinusSix = +minusSix // alsoMinusSix equals -6
+```
+
+## 2.4组合赋值符号
+
+```swift
+var a = 1
+a += 2  //表达式  a += 2  其实就是 a = a + 2  的简写
+print(a)
+
+>> 3
+
+# 组合赋值符号没有返回值，所以不能用于变量常量赋值
+```
+
+## 2.5 比较运算符
+
+```swift
+# == 等于
+# != 不等于
+# > 大于
+# >= 大于等于
+# <= 小于等于
+# < 小于
+```
+
+Int、String可以用于比较，
+
+```swift
+(1,"adc") > (2,cda)
+
+>> false
+```
+
+2.6 三元条件运算符
+
+`a ? b : c`，意思是a为true时，b；反之false时，c。
+
+```swift
+# 扩写
+if a {
+    b
+} else {
+    c
+}
+
+# example
+
+let contentHeight = 40
+let hasHeader = true
+let rowHeight = contentHeight + (hasHeader ? 50 : 20)
+// rowHeight is equal to 90
+
+# 上边栗子的扩写
+
+let contentHeight = 40
+let hasHeader = true
+var rowHeight: Int?
+if hasHeader {
+    rowHeight = contentHeight + 50
+} else {
+    rowHeight = contentHeight + 20
+}
+```
+
+## 2.6 合并空值运算符
+
+*合并空值运算符* （ a ?? b ）如果可选项 a 有值则展开，如果没有值，是 nil ，则返回默认值 b 。表达式 a 必须是一个可选类型。表达式 b 必须与 a 的储存类型相同。
+
+```swift
+# 合并空值运算符是下面的缩写
+a != nil ? a! : b  //运算顺序，从左到右，有括号先计算括号。
+```
+
+```swift
+# example
+let defaultColorName = "red"
+var userDefinedColorName: String? // defaults to nil
+var colorNameToUse = userDefinedColorName ?? defaultColorName //userDefinedColorName为空，故而red
+// userDefinedColorName is nil, so colorNameToUse is set to the default of "red"
+```
+
+## 2.7 区间运算符
+
+### 2.7.1 闭区间运算符
+
+*闭区间运算符*（ a...b ）定义了从 a 到 b 的一组范围，并且包含 a 和 b 。 a 的值不能大于 b 。
+
+```swift
+for index in 1...5 {
+    print("\(index) times 5 is \(index * 5)")
+}
+// 1 times 5 is 5
+// 2 times 5 is 10
+// 3 times 5 is 15
+// 4 times 5 is 20
+// 5 times 5 is 25
+```
+
+### 2.7.2 半开区间运算符
+
+*半开区间运算符*（ a..<b ）定义了从 a 到 b 但不包括 b 的区间，即 *半开*。*左闭右开区间*
+
+```swift
+let names = ["Anna", "Alex", "Brian", "Jack"]
+let count = names.count
+for i in 0..<count {           //0..<4
+    print("Person \(i + 1) is called \(names[i])")
+}
+// Person 1 is called Anna
+// Person 2 is called Alex
+// Person 3 is called Brian
+// Person 4 is called Jack
+```
+
+### 2.7.4 单侧区间
+
+是*闭区间*的一种形式，写作`[2...]`，意思：2，3，4... 无限延伸出去，包括2。当然也有`[...2]`、`[2>..]`、`[..<2]`
+
+## 2.8 逻辑运算符
+
+```swift
+逻辑 非  ( !a )
+逻辑 与  ( a && b )
+逻辑 或  ( a || b )
+
+// 逻辑运算符之间没有优先级，按照从左到右的顺序计算，有括号则优先运算
+```
+
+详细见：https://www.cnswift.org/basic-operators#spl-15
